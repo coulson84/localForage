@@ -19,7 +19,12 @@ function isIndexedDBValid() {
         if (typeof openDatabase !== 'undefined' && typeof navigator !== 'undefined' &&
             navigator.userAgent &&
             /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
-            return false;
+
+            var userAgentSubstring = navigator.userAgent.split('Version/')[1];
+
+            if (userAgentSubstring && parseFloat(userAgentSubstring) < 10) {
+                return false;
+            }
         }
 
         return idb &&
